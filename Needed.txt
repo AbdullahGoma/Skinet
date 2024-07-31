@@ -17,6 +17,41 @@ Ctrl + ` (backtick) => toggle terminal vs code
 
 Ctrl + shift + p => .Net Generate Assets ....
 
+cd .\API\
+dotnet run 
+
+dotnet dev-certs https 
+dotnet dev-certs https --trust
+
+dotnet watch
+dotnet watch --no-hot-reload
+
+dotnet tool install --global dotnet-ef --version 8.0.7
+dotnet ef
+
+dotnet ef migrations add InitialCreate -o Data/Migrations
+
+dotnet ef database update
+dotnet new classlib -n Core
+dotnet new classlib -n Infrastructure
+dotnet sln add Infrastructure
+dotnet sln add Core
+dotnet add reference ../Infrastructure => In API
+dotnet add reference ../Core => In Infrastructure
+dotnet build
+dotnet new gitignore
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
