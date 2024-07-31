@@ -1,0 +1,22 @@
+Extenssions that we need:
+C#
+C# Extenssion
+Material Icon Theme
+nuget gallery
+sqlite
+
+
+Commands:
+code .
+dotnet new list
+dotnet new sln
+dotnet new webapi -n API
+dotnet sln add API/
+dotnet sln list
+Ctrl + ` (backtick) => toggle terminal vs code
+
+Ctrl + shift + p => .Net Generate Assets ....
+
+
+
+
