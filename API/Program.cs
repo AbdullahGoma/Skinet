@@ -26,7 +26,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 // Services
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+//Auto Mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -39,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 // app.UseAuthentication();
+app.UseStaticFiles();
 app.UseAuthorization();
 app.MapControllers();
 

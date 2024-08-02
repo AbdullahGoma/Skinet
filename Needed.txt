@@ -41,6 +41,10 @@ dotnet add reference ../Core => In Infrastructure
 dotnet build
 dotnet new gitignore
 
+dotnet ef database drop -p .\Infrastructure\ -s .\API\
+dotnet ef migrations remove -p .\Infrastructure\ -s .\API\
+
+
 
 
 
