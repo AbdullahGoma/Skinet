@@ -13,6 +13,7 @@ namespace Core.Interfaces
     T? Find(Expression<Func<T, bool>> predicate, string[]? includes = null);
     Task<T> GetEntityWithSpec(ISpecification<T> spec);
     Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
+    Task<int> GetCountAsync(ISpecification<T> spec);
     // T? Find(Expression<Func<T, bool>> predicate,
     //         Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
     IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate, int? skip = null, int? take = null,

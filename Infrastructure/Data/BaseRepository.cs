@@ -60,6 +60,10 @@ namespace Infrastructure.Data
 	{
 		return await ApplySpecification(spec).ToListAsync();
 	}
+	public async Task<int> GetCountAsync(ISpecification<T> spec)
+	{
+		return await ApplySpecification(spec).CountAsync();
+	}
 
 	// public T? Find(Expression<Func<T, bool>> predicate,
 	// 		Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
@@ -169,5 +173,6 @@ namespace Infrastructure.Data
 	{
 		return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
 	}
-}
+
+    }
 }
