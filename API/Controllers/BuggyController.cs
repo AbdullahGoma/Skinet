@@ -4,13 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class BuggyController : BaseApiController
+    public class BuggyController(StoreContext context) : BaseApiController
     {
-        private readonly StoreContext _context;
-        public BuggyController(StoreContext context)
-        {
-            _context = context;
-        }
+        private readonly StoreContext _context = context;
 
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()

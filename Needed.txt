@@ -45,6 +45,50 @@ dotnet ef database drop -p .\Infrastructure\ -s .\API\
 dotnet ef migrations remove -p .\Infrastructure\ -s .\API\
 
 
+ng new client => Create new angular application
+cd client
+ng serve => start program
+https://github.com/FiloSottile/mkcert
+
+
+in Power Shell (admin)
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+choco install mkcert
+mkcert -install
+
+mkdir ssl
+cd sll
+mkcert localhost
+
+
+
+ng add @angular/material
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init
+
+updte tailwind.config.js 
+to 
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{html,ts}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
