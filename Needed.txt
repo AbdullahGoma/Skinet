@@ -80,6 +80,44 @@ module.exports = {
 }
 
 
+update style.scss to
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+install angular and tailwind and auto rename tag extensions
+
+ng generate help
+
+ng g c layout/header --dry--run => ng generate component layo......
+
+ng g c layout/header --skip-tests
+
+
+npx tsc src/demo.ts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
