@@ -110,6 +110,24 @@ ng g c features/shop/product-item --skip-tests
 ng g c features/shop/filters-dialog --skip-tests
 
 ng g c features/home --skip-tests
+ng g c features/shop/product-details --skip-tests
+
+
+ng g c features/shop/product-details --skip-tests
+
+ng g c shared/components/not-found --skip-tests
+ng g c shared/components/server-error --skip-tests
+
+
+ng g interceptor core/interceptors/error --dry-run
+ng g interceptor core/interceptors/error --skip-tests
+
+
+ng g s core/services/snackbar --skip-tests
+
+ng g interceptor core/interceptors/loading --skip-tests
+ng g s core/services/busy --skip-tests
+
 
 
 

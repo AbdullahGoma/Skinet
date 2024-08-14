@@ -1,3 +1,4 @@
+using API.Dtos;
 using API.Errors;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +35,23 @@ namespace API.Controllers
             return BadRequest(new ApiResponse(400));
         }
 
+
         [HttpGet("badrequest/{id}")]
         public ActionResult GetNotFoundRequest(int id)
+        {
+            return Ok();
+        }
+
+
+        [HttpGet("unauthorized")]
+        public ActionResult GetUnauthorized()
+        {
+            return Unauthorized();
+        }
+        
+
+        [HttpGet("validationerror")]
+        public ActionResult GetValidationError(ProductDto dto)
         {
             return Ok();
         }
