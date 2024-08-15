@@ -1,8 +1,10 @@
 using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace API.Extensions
 {
@@ -32,24 +34,47 @@ namespace API.Extensions
             });
 
             // Services
+
+            // Unit Of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             //Auto Mapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Configures the behavior of API controllers when model validation fails
             services.Configure<ApiBehaviorOptions>(options => 
             {
+                // Customizes the response returned for invalid model state
                 options.InvalidModelStateResponseFactory = actionContext => 
                 {
-                    var errors = actionContext.ModelState.Where(e => e.Value.Errors.Count > 0)
-                    .SelectMany(x => x.Value.Errors)
-                    .Select(x => x.ErrorMessage).ToArray();
+                    // Extracts validation errors from the ModelState where there are any errors
+                    var errors = actionContext.ModelState
+                        .Where(e => e.Value.Errors.Count > 0)   // Filters out entries with no errors
+                        .SelectMany(x => x.Value.Errors)        // Flattens the list of errors
+                        .Select(x => x.ErrorMessage)            // Selects the error messages
+                        .ToArray();                             // Converts to an array of strings
 
+                    // Creates a custom error response object with the extracted errors
                     var errorResponse = new ApiValidationErrorResponse
                     {
                         Errors = errors
                     };
+
+                    // Returns a 400 Bad Request response with the custom error response in the body
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
+
+            // Configure Redis
+            services.AddSingleton<IConnectionMultiplexer>(c => 
+            {
+                var connectionString = config.GetConnectionString("Redis") ?? throw new Exception("Cannot get redis connection string");
+                var configuration = ConfigurationOptions.Parse(connectionString);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
+            // CartService
+            services.AddSingleton<ICartService, CartService>();
 
             services.AddCors(options =>
             {

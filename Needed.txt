@@ -129,6 +129,7 @@ ng g interceptor core/interceptors/loading --skip-tests
 ng g s core/services/busy --skip-tests
 
 
+docker-compose up --detach 
 
 
 
