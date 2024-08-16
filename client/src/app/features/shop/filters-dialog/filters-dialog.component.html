@@ -8,7 +8,7 @@
             </h4>
             <mat-selection-list [(ngModel)]="selectedBrands" [multiple]="true">
                 @for(brand of shopService.brands; track $index) {
-                    <mat-list-option [value]="brand.name">{{brand.name}}</mat-list-option>
+                    <mat-list-option [value]="brand">{{brand}}</mat-list-option>
                 }
             </mat-selection-list>
         </div>
@@ -18,7 +18,7 @@
             </h4>
             <mat-selection-list [(ngModel)]="selectedTypes" [multiple]="true">
                 @for(type of shopService.types; track $index) {
-                    <mat-list-option [value]="type.name">{{type.name}}</mat-list-option>
+                    <mat-list-option [value]="type">{{type}}</mat-list-option>
                 }
             </mat-selection-list>
         </div>

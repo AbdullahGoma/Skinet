@@ -24,7 +24,7 @@ namespace API.Extensions
 
             services.AddDbContext<StoreContext>(option => 
             {
-                option.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                option.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
 
 
@@ -69,7 +69,7 @@ namespace API.Extensions
             services.AddSingleton<IConnectionMultiplexer>(c => 
             {
                 var connectionString = config.GetConnectionString("Redis") ?? throw new Exception("Cannot get redis connection string");
-                var configuration = ConfigurationOptions.Parse(connectionString);
+                var configuration = ConfigurationOptions.Parse(connectionString, true);
                 return ConnectionMultiplexer.Connect(configuration);
             });
 

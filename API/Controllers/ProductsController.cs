@@ -17,9 +17,9 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductDto>>> GetProducts( [FromQuery] ProductSpecParams productParams) 
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(productParams);
+            var spec = new ProductSpecification(productParams);
             var countSpec = new ProductWithFiltersForCountSpecification(productParams);
-            var totalItems = await _unitOfWork.Products.GetCountAsync(countSpec);
+            var totalItems = await _unitOfWork.Products.CountAsync(countSpec);
             var products = await _unitOfWork.Products.ListAsync(spec);
 
             var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(products);
@@ -32,8 +32,7 @@ namespace API.Controllers
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductDto>> GetProduct(int id) 
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(id);
-            var product = await _unitOfWork.Products.GetEntityWithSpec(spec);
+            var product = await _unitOfWork.Products.GetByIdAsync(id);
 
             if (product == null) 
                return NotFound(new ApiResponse(404));
@@ -42,15 +41,17 @@ namespace API.Controllers
         }
 
         [HttpGet("brands")]
-        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetBrands()
+        public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
         {
-            return Ok(await _unitOfWork.ProductBrands.GetAllAsync());
+            var spec = new BrandListSpecification();
+            return Ok(await _unitOfWork.Products.ListAsync(spec));
         }
 
         [HttpGet("types")]
-        public async Task<ActionResult<IReadOnlyList<ProductType>>> GetTypes()
+        public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
         {
-            return Ok(await _unitOfWork.ProductTypes.GetAllAsync());
+            var spec = new TypeListSpecification();
+            return Ok(await _unitOfWork.Products.ListAsync(spec));
         }
 
     }

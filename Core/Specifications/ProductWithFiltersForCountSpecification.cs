@@ -10,8 +10,8 @@ namespace Core.Specifications
     {
         public ProductWithFiltersForCountSpecification(ProductSpecParams productParams) : base(x => 
                                     (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search)) 
-                                    && (productParams.Brands.Count == 0 || productParams.Brands.Contains(x.ProductBrand.Name)) &&
-                                    (productParams.Types.Count == 0 || productParams.Types.Contains(x.ProductType.Name)))
+                                    && (productParams.Brands.Count == 0 || productParams.Brands.Contains(x.Brand)) &&
+                                    (productParams.Types.Count == 0 || productParams.Types.Contains(x.Type)))
         {
 
         }

@@ -131,14 +131,21 @@ ng g s core/services/busy --skip-tests
 
 docker-compose up --detach 
 
+docker compose down
+
+docker compose up -d
+
+
+dotnet ef migrations remove -p .\Infrastructure\ -s .\API\
+dotnet ef migrations add InitialCreate -s API -p Infrastructure 
+dotnet ef database drop -p .\Infrastructure\ -s .\API\
+dotnet ef database update -s .\API\ -p .\Infrastructure\
+
+dotnet ef migrations add UpdateDescription -s API -p Infrastructure
 
 
 
-
-
-
-
-
+dotnet add package Microsoft.Data.SqlClient --version 5.0.0 -s API -p Infrastructure
 
 
 

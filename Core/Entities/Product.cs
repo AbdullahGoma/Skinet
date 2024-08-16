@@ -6,10 +6,9 @@ namespace Core.Entities
         public string Description { get; set; } = null!;
         public decimal Price { get; set; }  
         public string PictureUrl { get; set; } = null!;
-        public int ProductTypeId { get; set; }
-        public ProductType? ProductType { get; set; }
-        public int ProductBrandId { get; set; }
-        public ProductBrand? ProductBrand { get; set; }
+        public required string Type { get; set; }
+        public required string Brand { get; set; }
+        public int QuantityInStock { get; set; }
         
     }
 }
