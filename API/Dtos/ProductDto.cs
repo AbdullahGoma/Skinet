@@ -7,7 +7,7 @@ namespace API.Dtos
         public string Description { get; set; } = null!;
         public decimal Price { get; set; }  
         public string PictureUrl { get; set; } = null!;
-        public string ProductType { get; set; } = null!;
-        public string ProductBrand { get; set; } = null!;
+        public string Type { get; set; } = null!;
+        public string Brand { get; set; } = null!;
     }
 }

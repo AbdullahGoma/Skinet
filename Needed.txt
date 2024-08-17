@@ -147,10 +147,14 @@ dotnet ef migrations add UpdateDescription -s API -p Infrastructure
 
 dotnet add package Microsoft.Data.SqlClient --version 5.0.0 -s API -p Infrastructure
 
+ng g s core/services/cart --skip-tests
+ng g c features/cart --skip-tests
 
+npm install nanoid
 
+ng g environments
 
-
+ng g s core/services/init --skip-tests
 
 
 
