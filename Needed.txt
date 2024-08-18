@@ -156,7 +156,11 @@ ng g environments
 
 ng g s core/services/init --skip-tests
 
+ng g c features/cart/cart-item --skip-tests
+ng g c shared/components/order-summary --skip-tests
 
+ng g s core/services/checkout --skip-tests
+ng g c features/checkout --skip-tests
 
 
 
