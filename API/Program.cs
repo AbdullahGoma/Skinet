@@ -1,5 +1,6 @@
 using API.Extensions;
 using API.Middleware;
+using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,8 @@ app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 app.MapControllers();
+// Identity Congfiguration
+app.MapGroup("api").MapIdentityApi<ApplicationUser>(); // ex: api/account/login
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

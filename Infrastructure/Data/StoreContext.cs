@@ -1,10 +1,11 @@
 using System.Reflection;
 using Core.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class StoreContext(DbContextOptions options) : DbContext(options)
+    public class StoreContext(DbContextOptions options) : IdentityDbContext<ApplicationUser>(options)
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }

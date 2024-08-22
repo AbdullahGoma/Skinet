@@ -164,6 +164,12 @@ ng g c features/checkout --skip-tests
 
 
 
+// Identity
+Microsoft.Extensions.Identity.Stores => core
+microsoft.aspnetcore.identity.entityframeworkcore => infrastructure
+
+dotnet ef migrations add IdentityAdded -s API -p .\Infrastructure\
+
 
 
 

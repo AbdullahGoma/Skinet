@@ -1,4 +1,5 @@
 using API.Errors;
+using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Services;
@@ -25,12 +26,6 @@ namespace API.Extensions
             services.AddDbContext<StoreContext>(option => 
             {
                 option.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-            });
-
-
-            services.AddAuthorization(options =>
-            {
-                // Configure authorization policies if needed
             });
 
             // Services
@@ -76,6 +71,14 @@ namespace API.Extensions
             // CartService
             services.AddSingleton<ICartService, CartService>();
 
+            // Identity Congfiguration
+            services.AddAuthorization(options =>
+            {
+                // Configure authorization policies if needed
+            });
+            services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<StoreContext>();
+
+            // Cors Config
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", policy =>

@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using API.Dtos;
 using API.Errors;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -51,9 +53,19 @@ namespace API.Controllers
         
 
         [HttpGet("validationerror")]
-        public ActionResult GetValidationError(ProductDto dto)
+        public ActionResult GetValidationError(ProductDto product)
         {
             return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("secret")]
+        public IActionResult GetSecret()
+        {
+            var name = User.FindFirst(ClaimTypes.Name)?.Value;
+            var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            return Ok("Hello " + name + " with the id of " + id);
         }
     }
 }
