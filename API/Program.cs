@@ -27,6 +27,7 @@ app.UseHttpsRedirection();
 // app.UseAuthentication();
 app.UseStaticFiles();
 
+// Cors
 app.UseCors("CorsPolicy");
 
 app.UseAuthorization();

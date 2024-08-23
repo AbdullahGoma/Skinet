@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using API.Dtos;
+using API.Extensions;
 using Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +24,15 @@ namespace API.Controllers
 
             var result = await _signInManager.UserManager.CreateAsync(user, dto.Password);
 
-            if (!result.Succeeded) return BadRequest(result.Errors);
+            if (!result.Succeeded) 
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+
+                return ValidationProblem();
+            }
 
             return Ok();
         }
@@ -43,16 +52,14 @@ namespace API.Controllers
             var isAuthenticated = User.Identity?.IsAuthenticated;
             if (isAuthenticated == false) return NoContent();
 
-            var user = await _signInManager.UserManager.Users
-                    .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
-
-            if (user == null) return Unauthorized();
+            var user = await _signInManager.UserManager.GetUserByEmailWithAddress(User);
 
             return Ok(new 
             {
                 user.FirstName,
                 user.LastName,
-                user.Email
+                user.Email,
+                Address = user.Address?.ToDto()
             });
         }
 
@@ -63,6 +70,28 @@ namespace API.Controllers
             {
                 IsAuthenticated = User.Identity?.IsAuthenticated ?? false
             });
+        }
+
+        [Authorize]
+        [HttpPost("address")] 
+        public async Task<ActionResult<Address>> CreateOrUpdateAddress(AddressDto dto)
+        {
+            var user = await _signInManager.UserManager.GetUserByEmailWithAddress(User);
+
+            if (user.Address is null)
+            {
+                user.Address = dto.ToEntity();
+            }
+            else
+            {
+                user.Address.UpdateFromDto(dto);
+            }
+
+            var result = await _signInManager.UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded) return BadRequest("Problem when updating user address!");
+
+            return Ok(user.Address.ToDto());
         }
 
     }
