@@ -174,14 +174,16 @@ dotnet ef migrations add IdentityAdded -s API -p .\Infrastructure\
 dotnet ef migrations add AddressAdded -s .\API\ -p .\Infrastructure\ 
 
 
+ng g s core/services/account --skip-tests 
+
+ng g c features/account/login --skip-tests
+ng g c features/account/register --skip-tests
 
 
+tom@test.com
+Pa$$w0rd
 
-
-
-
-
-
+ng g interceptor core/interceptors/auth --skip-tests
 
 
 
