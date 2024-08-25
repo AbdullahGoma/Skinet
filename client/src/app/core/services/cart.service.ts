@@ -15,6 +15,7 @@ export class CartService {
   itemCount = computed(() => {
     return this.cart()?.items.reduce((sum, item) => sum + item.quantity, 0); // 0) => initial value is 0
   });
+  
   totals = computed(() => {
     const cart = this.cart();
     if (!cart) return null;

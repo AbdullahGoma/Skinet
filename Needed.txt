@@ -185,6 +185,15 @@ Pa$$w0rd
 
 ng g interceptor core/interceptors/auth --skip-tests
 
+ng g c shared/components/text-input --skip-tests
+
+ng g guard core/guards/auth --dry-run
+
+ng g guard core/guards/auth --implements CanActivate --skip-tests
+ng g guard core/guards/emptyCart --implements CanActivate --skip-tests
+
+ng g c shared/components/empty-state --skip-tests
+
 
 
 
