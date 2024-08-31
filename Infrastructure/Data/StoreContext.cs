@@ -8,6 +8,7 @@ namespace Infrastructure.Data
     public class StoreContext(DbContextOptions options) : IdentityDbContext<ApplicationUser>(options)
     {
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<DeliveryMethod> DeliveryMethods { get; set;}
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }

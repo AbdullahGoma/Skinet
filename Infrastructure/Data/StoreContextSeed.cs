@@ -25,7 +25,16 @@ namespace Infrastructure.Data
             {
                 var productsData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/products.json");
                 var products = JsonSerializer.Deserialize<List<Product>>(productsData);
+                if(products is null) return;
                 context.Products.AddRange(products);
+            }
+
+            if(!context.DeliveryMethods.Any())
+            {
+                var deliveryMethods = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/delivery.json");
+                var deliveries = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryMethods);
+                if(deliveries is null) return;
+                context.DeliveryMethods.AddRange(deliveries);
             }
 
             if(context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();

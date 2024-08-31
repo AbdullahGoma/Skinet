@@ -195,6 +195,11 @@ ng g guard core/guards/emptyCart --implements CanActivate --skip-tests
 ng g c shared/components/empty-state --skip-tests
 
 
+dotnet ef migrations add DeliveryMethodsAdded -p .\Infrastructure\ -s .\API\ 
+
+
+
+
 
 
 
