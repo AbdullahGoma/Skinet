@@ -14,6 +14,7 @@ namespace Infrastructure.Data
         {
             _context = context;
         }
+        public IDeliveryMethodRepository DeliveryMethods => new DeliveryMethodRepository(_context);
         public IProductRepository Products => new ProductRepository(_context);
 
         public IProductTypeRepository ProductTypes => new ProductTypeRepository(_context);

@@ -7,6 +7,7 @@ namespace Core.Interfaces
 {
     public interface IUnitOfWork
     {
+        IDeliveryMethodRepository DeliveryMethods { get; }
         IProductRepository Products { get; }
         IProductTypeRepository ProductTypes { get; }
         IProductBrandRepository ProductBrands { get; }
