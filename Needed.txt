@@ -197,6 +197,13 @@ ng g c shared/components/empty-state --skip-tests
 
 dotnet ef migrations add DeliveryMethodsAdded -p .\Infrastructure\ -s .\API\ 
 
+npm install @stripe/stripe-js
+
+ng g s core/services/stripe --skip-tests
+
+
+
+
 
 
 
