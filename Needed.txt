@@ -201,6 +201,37 @@ npm install @stripe/stripe-js
 
 ng g s core/services/stripe --skip-tests
 
+ng g c features/checkout/checkout-delivery --skip-tests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
