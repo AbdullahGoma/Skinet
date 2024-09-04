@@ -203,6 +203,8 @@ ng g s core/services/stripe --skip-tests
 
 ng g c features/checkout/checkout-delivery --skip-tests
 
+ng g c features/checkout/checkout-review --skip-tests
+
 
 
 
