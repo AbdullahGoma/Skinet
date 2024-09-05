@@ -24,7 +24,7 @@ export class CheckoutDeliveryComponent implements OnInit {
     this.checkoutService.getDeliveryMethods().subscribe({
       next: methods => {
         if (this.cartService.cart()?.deliveryMethodId) {
-          const method = methods.find(x => x.id === this.cartService.cart()?.deliveryMethodId);
+          const method = methods.find(x => x.id === this.cartService.cart()?.deliveryMethodId); // Here we get the delivery method that chosed before from the cart
           if (method) {
             this.cartService.selectedDelivery.set(method);
             this.deliveryComplete.emit(true);
@@ -38,7 +38,7 @@ export class CheckoutDeliveryComponent implements OnInit {
     this.cartService.selectedDelivery.set(method);
     const cart = this.cartService.cart();
     if (cart) {
-      cart.deliveryMethodId = method.id;
+      cart.deliveryMethodId = method.id; // Here we update the method Id in cart when user change it
       this.cartService.setCart(cart);
       this.deliveryComplete.emit(true);
     }
