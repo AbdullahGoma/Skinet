@@ -5,8 +5,7 @@
                 <div id="address-element"></div>
 
                 <div class="flex justify-end mt-1">
-                    <mat-checkbox [checked]="saveAddress"
-                    (change)="onSaveAddressCheckboxChange($event)">
+                    <mat-checkbox [checked]="saveAddress" (change)="onSaveAddressCheckboxChange($event)">
                         Save as default address
                     </mat-checkbox>
                 </div>
@@ -33,11 +32,17 @@
                 </div>
             </mat-step>
             <mat-step label="Confirmation">
-                <app-checkout-review></app-checkout-review>
+                <app-checkout-review [confirmationToken]="confirmationToken"></app-checkout-review>
 
                 <div class="flex justify-between mt-6">
                     <button matStepperPrevious mat-stroked-button>Back</button>
-                    <button mat-flat-button>Pay {{cartService.totals()?.total | currency}}</button>
+                    <button (click)="confirmPayment(stepper)" mat-flat-button [disabled]="!confirmationToken || loading">
+                        @if (loading) {
+                            <mat-spinner diameter="20"></mat-spinner>
+                        } @else {
+                            <span>Pay {{cartService.totals()?.total | currency}}</span>
+                        }
+                    </button>
                 </div>
             </mat-step>
         </mat-stepper>
