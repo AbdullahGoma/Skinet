@@ -40,6 +40,50 @@ namespace API.Controllers
             return _mapper.Map<Product, ProductDto>(product);
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> UpdateProduct(int id, Product product)
+        {
+            if (product.Id != id || !ProductExists(id))
+                return BadRequest("Cannot update this product");
+
+            _unitOfWork.Repository<Product>().Update(product);
+
+            if (await _unitOfWork.Complete())
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Problem updating the product");
+        }
+
+    
+        [HttpPost]
+        public async Task<ActionResult<Product>> CreateProduct(Product product)
+        {
+            _unitOfWork.Repository<Product>().Add(product);
+
+            if (await _unitOfWork.Complete())
+            {
+                return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            }
+
+            return BadRequest("Problem with creating a product!");
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> DeleteProduct(int id)
+        {
+            var product = await _unitOfWork.Repository<Product>().GetByIdAsync(id);
+
+            if (product == null) return NotFound();
+
+            _unitOfWork.Repository<Product>().Remove(product);
+
+            if (await _unitOfWork.Complete()) return NoContent();
+
+            return BadRequest("Problem with deleting the product!");
+        }
+
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
         {
@@ -52,6 +96,11 @@ namespace API.Controllers
         {
             var spec = new TypeListSpecification();
             return Ok(await _unitOfWork.Products.ListAsync(spec));
+        }
+
+        private bool ProductExists(int id)
+        {
+            return _unitOfWork.Repository<Product>().Exists(id);
         }
 
     }

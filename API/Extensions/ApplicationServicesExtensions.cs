@@ -30,6 +30,9 @@ namespace API.Extensions
 
             // Services
 
+            // Base Repository
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
             // Unit Of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

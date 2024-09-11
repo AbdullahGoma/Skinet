@@ -209,6 +209,8 @@ ng g c features/checkout/checkout-review --skip-tests
 ng g pipe shared/pipes/address --skip-tests
 ng g c features/checkout/checkout-success --skip-tests
 
+dotnet ef migrations add OrderAggregateAdded -p .\Infrastructure\ -s .\API\
+
 
 
 

@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Core.Entities;
 
 namespace Core.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
+        public IBaseRepository<T> Repository<T>() where T : BaseEntity;
         IDeliveryMethodRepository DeliveryMethods { get; }
         IProductRepository Products { get; }
         IProductTypeRepository ProductTypes { get; }
         IProductBrandRepository ProductBrands { get; }
-        int Complete();
+        Task<bool> Complete();
     }
 }

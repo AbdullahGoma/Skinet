@@ -3,10 +3,7 @@ using Core.Interfaces;
 
 namespace Infrastructure.Data
 {
-    public class ProductBrandRepository : BaseRepository<ProductBrand>, IProductBrandRepository
+    public class ProductBrandRepository(StoreContext context) : BaseRepository<ProductBrand>(context), IProductBrandRepository
     {
-        public ProductBrandRepository(StoreContext context) : base(context)
-        {
-        }
     }
 }
