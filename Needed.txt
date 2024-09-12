@@ -212,7 +212,7 @@ ng g c features/checkout/checkout-success --skip-tests
 dotnet ef migrations add OrderAggregateAdded -p .\Infrastructure\ -s .\API\
 
 
-
+ dotnet ef migrations add PaymentSummaryUpdatYearColumnToExpYear -p .\Infrastructure\ -s .\API\
 
 
 
