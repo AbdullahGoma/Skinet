@@ -3,6 +3,7 @@ using API.Extensions;
 using Core.Entities;
 using Core.Entities.OrderAggregate;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ namespace API.Controllers
     public class OrdersController(ICartService _cartService, IUnitOfWork _unitOfWork) : BaseApiController
     {
         [HttpPost]
-        public async Task<ActionResult<Order>> CreateOrder(OrderDto dto) 
+        public async Task<ActionResult<Order>> CreateOrder(CreateOrderDto dto) 
         {
             var email = User.GetEmail();
 
@@ -67,5 +68,30 @@ namespace API.Controllers
 
             return BadRequest("Problem happened when creating the order!");
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser() 
+        {
+            var spec = new OrderSpecification(User.GetEmail());
+
+            var orders = await _unitOfWork.Repository<Order>().ListAsync(spec);
+
+            var ordersToReturn = orders.Select(o => o.ToDto()).ToList();
+
+            return Ok(ordersToReturn);
+        } 
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<OrderDto>> GetOrderById(int id)
+        {
+            var spec = new OrderSpecification(User.GetEmail(), id);
+
+            var order = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
+
+            if (order == null) return NotFound();
+
+            return order.ToDto();
+        }
+
     }
 }
