@@ -39,6 +39,9 @@ namespace API.Extensions
             //Auto Mapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            // SignalR Notifictions
+            services.AddSignalR();
+
             // Configures the behavior of API controllers when model validation fails
             services.Configure<ApiBehaviorOptions>(options => 
             {
@@ -89,7 +92,7 @@ namespace API.Extensions
                 options.AddPolicy("CorsPolicy", policy =>
                 {
                     policy.AllowAnyHeader().AllowAnyMethod()
-                        .AllowCredentials().WithOrigins("https://localhost:4200");
+                        .AllowCredentials().WithOrigins("http://localhost:4200", "https://localhost:4200");
                 });
             });
 

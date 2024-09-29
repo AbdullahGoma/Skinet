@@ -219,11 +219,15 @@ ng g c features/orders/order --skip-tests --flat
 ng g c features/orders/order-detailed --skip-tests 
 
 
+stripe --version
+stripe login
+stripe listen --forward-to https://localhost:7000/api/payments/webhook -e payment_intent.succeeded
 
 
 
+npm install @microsoft/signalr
 
-
+ng g s core/services/siganlr --skip-tests
 
 
 

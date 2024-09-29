@@ -1,5 +1,6 @@
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -30,10 +31,13 @@ app.UseStaticFiles();
 // Cors
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 // Identity Congfiguration
 app.MapGroup("api").MapIdentityApi<ApplicationUser>(); // ex: api/account/login
+// Configure SignalR Access
+app.MapHub<NotificationHub>("/hub/notifications");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

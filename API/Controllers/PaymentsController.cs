@@ -1,14 +1,21 @@
+using API.Extensions;
+using API.SignalR;
 using Core.Entities;
 using Core.Entities.OrderAggregate;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Stripe;
 
 namespace API.Controllers
 {
-    public class PaymentsController(IPaymentService _paymentService, IUnitOfWork _unitOfWork, ILogger<PaymentsController> _logger, IConfiguration _config) : BaseApiController
+    public class PaymentsController(IPaymentService _paymentService, 
+    IUnitOfWork _unitOfWork, 
+    ILogger<PaymentsController> _logger, 
+    IConfiguration _config,
+    IHubContext<NotificationHub> _hubContext) : BaseApiController
     {
         private readonly string _webhookSecret = _config["StripeSettings:WhSecret"]!;
 
@@ -78,7 +85,12 @@ namespace API.Controllers
 
                 await _unitOfWork.Complete();
 
-                // TODO: SignalR
+                var connectionId = NotificationHub.GetConnectionIdByEmail(order.BuyerEmail);
+
+                if (!string.IsNullOrEmpty(connectionId)) 
+                {
+                    await _hubContext.Clients.Client(connectionId).SendAsync("OrderCompleteNotification", order.ToDto());
+                }
             }
         }
 
