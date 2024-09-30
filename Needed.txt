@@ -229,6 +229,8 @@ npm install @microsoft/signalr
 
 ng g s core/services/siganlr --skip-tests
 
+ng g guard core/guards/order-complete --implements CanActivate --skip-tests
+
 
 
 
