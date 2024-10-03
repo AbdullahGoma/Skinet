@@ -33,11 +33,17 @@ app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 // Identity Congfiguration
 app.MapGroup("api").MapIdentityApi<ApplicationUser>(); // ex: api/account/login
 // Configure SignalR Access
 app.MapHub<NotificationHub>("/hub/notifications");
+
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

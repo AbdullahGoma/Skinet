@@ -232,9 +232,9 @@ ng g s core/services/siganlr --skip-tests
 ng g guard core/guards/order-complete --implements CanActivate --skip-tests
 
 
+ng build
 
-
-
+dotnet ef database drop -p .\Infrastructure\ -s .\API\ 
 
 
 

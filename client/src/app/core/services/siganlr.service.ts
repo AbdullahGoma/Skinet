@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Order } from '../../shared/models/order';
 
 @Injectable({

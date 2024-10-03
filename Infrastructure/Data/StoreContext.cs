@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class StoreContext(DbContextOptions options) : IdentityDbContext<ApplicationUser>(options)
+    public class StoreContext(DbContextOptions<StoreContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
         public DbSet<Address> Addresses { get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods { get; set;}

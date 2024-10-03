@@ -5,13 +5,14 @@ import { Product } from '../../shared/models/product';
 import { ProductBrand } from '../../shared/models/brand';
 import { ProductType } from '../../shared/models/type';
 import { ShopParams } from '../../shared/models/shopParams';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
 
-  baseUrl = 'https://localhost:7000/api/'
+  baseUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
 
