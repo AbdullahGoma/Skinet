@@ -74,7 +74,8 @@ namespace API.Controllers
 
                 var order = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec) ?? throw new Exception("Order not found!");
 
-                if ((long) order.GetTotal() * 100 != intent.Amount)
+                var orderTotalInCents = (long)Math.Round(order.GetTotal() * 100, MidpointRounding.AwayFromZero);
+                if (orderTotalInCents != intent.Amount)
                 {
                     order.Status = OrderStatus.PaymentMismatch;
                 }

@@ -78,6 +78,8 @@ namespace API.Extensions
             services.AddSingleton<ICartService, CartService>();
             // Payment Service
             services.AddScoped<IPaymentService, PaymentService>();
+            // Coupon Service
+            services.AddScoped<ICouponService, CouponService>();
 
             // Identity Congfiguration
             services.AddAuthorization(options =>

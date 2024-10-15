@@ -236,6 +236,9 @@ ng build
 
 dotnet ef database drop -p .\Infrastructure\ -s .\API\ 
 
+dotnet ef migrations add "CouponsAdded" -s API -p Infrastructure
+
+
 
 
 
