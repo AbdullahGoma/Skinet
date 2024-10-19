@@ -42,7 +42,7 @@ export class OrderSummaryComponent {
 
         if (cart) {
           cart.coupon = coupon;
-          this.cartService.setCart(cart);
+          await firstValueFrom(this.cartService.setCart(cart));
           this.code = undefined;
         }
 
@@ -59,7 +59,7 @@ export class OrderSummaryComponent {
 
     if (cart.coupon) cart.coupon = undefined;
 
-    this.cartService.setCart(cart);
+    await firstValueFrom(this.cartService.setCart(cart));
 
     if (this.location.path() === '/checkout') {
       await firstValueFrom(this.stripeService.createOrUpdatePaymentIntent());

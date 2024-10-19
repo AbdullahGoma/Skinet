@@ -20,11 +20,13 @@ export class CartService {
   totals = computed(() => {
     const cart = this.cart();
     const delivery = this.selectedDelivery();
+
     if (!cart) return null;
-    const subtotal = cart.items.reduce((sum, item) => sum + item.quantity * item.price, 0); // 0) => initial value is 0
-    const shipping = delivery ? delivery.price : 0;
+    const subtotal = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    
     let discountValue = 0;
 
+    // console.log(cart?.coupon);
     if (cart.coupon) {
       if (cart.coupon.amountOff) {
         discountValue = cart.coupon.amountOff;
@@ -32,6 +34,8 @@ export class CartService {
         discountValue = subtotal * (cart.coupon.percentOff / 100);
       }
     }
+    
+    const shipping = delivery ? delivery.price : 0;
 
     return {
       subtotal,
