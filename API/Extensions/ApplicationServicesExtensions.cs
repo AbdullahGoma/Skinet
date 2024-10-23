@@ -3,6 +3,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -86,7 +87,9 @@ namespace API.Extensions
             {
                 // Configure authorization policies if needed
             });
-            services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<StoreContext>();
+            services.AddIdentityApiEndpoints<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<StoreContext>();
 
             // Cors Config
             services.AddCors(options =>

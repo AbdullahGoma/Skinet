@@ -6,6 +6,7 @@ using API.Dtos;
 using AutoMapper;
 using API.Errors;
 using API.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -40,6 +41,7 @@ namespace API.Controllers
             return _mapper.Map<Product, ProductDto>(product);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateProduct(int id, Product product)
         {
@@ -57,6 +59,7 @@ namespace API.Controllers
         }
 
     
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
@@ -70,6 +73,7 @@ namespace API.Controllers
             return BadRequest("Problem with creating a product!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
