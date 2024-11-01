@@ -5,6 +5,7 @@ namespace Core.Entities.OrderAggregate
         Pending,
         PaymentRecieved,
         PaymentFailed,
-        PaymentMismatch
+        PaymentMismatch,
+        Refunded
     }
 }
