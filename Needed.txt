@@ -244,7 +244,10 @@ dotnet ef migrations add RolesAdded -s API -p .\Infrastructure\
 ng g s core/services/admin --skip-tests
 ng g c features/admin/admin --skip-tests --flat
 
+ng g guard core/guards/admin --implements CanActivate --skip-tests
 
+
+ng g d shared/directives/is-admin --skip-tests
 
 
 
